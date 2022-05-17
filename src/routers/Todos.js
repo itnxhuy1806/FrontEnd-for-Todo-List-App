@@ -1,67 +1,66 @@
-import { useState } from "react";
-import { Button, TextField } from "@mui/material";
+import { useState, useEffect } from "react";
+import { useParams } from 'react-router-dom';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
 import AddIcon from '@mui/icons-material/Add';
-import '../App.css'
 import TaskList from "../components/TaskList";
-
-
-function generateId(arr) {
-  if (arr.length) return Math.max(...arr.map((ele) => ele.id)) + 1;
-  return 1;
-}
+import * as API from "../ultis/api"
 
 export default function Todos() {
-  const [tasks, setTasks] = useState([]);
-  const [inpValue, setInpValue] = useState("");
-  function changeInp(e) {
-    setInpValue(e.target.value);
-  }
 
-  function handleAdd() {
-    const newTasks = {
-      id: generateId(tasks),
-      checked: false,
-      content: inpValue,
-      editMode: false
-    };
-    setInpValue("")
-    setTasks([...tasks, newTasks]);
-  }
-  
-  function handleDelete(id) {
-    const newTasks = [...tasks].filter((task) => task.id !== id);
-    setTasks(newTasks);
-  }
+    const [tasks, setTasks] = useState([]);
+    const [inpValue, setInpValue] = useState("");
+    const { getTasks, addTask, deleteTask, updateTask } = API
+    let { TodoListId } = useParams();
 
-  function handleUpdateChecked(id) {
-    const newTasks = [...tasks].map((task) => {
-      if (task.id === id) return { ...task, checked: !task.checked };
-      return task;
-    });
-    setTasks(newTasks);
-    console.log(tasks)
-  }
+    function thenGetTasks(response) {
+        console.log(response)
+        setTasks(response.data.data.tasks.sort((a, b) => a.id - b.id))
+    }
 
-  function handleUpdateContent(id, content) {
-    const newTasks = [...tasks].map((task) => {
-      if (task.id === id) return { ...task, editMode: !task.editMode, content };
-      return task;
-    });
-    setTasks(newTasks);
-  }
-  return (
-    <div className="App" >
-      <h1>TodoList</h1>
-      <TextField
-        label="Enter new task content"
-        variant="outlined"
-        type="text"
-        value={inpValue}
-        onChange={changeInp}
-        size="small"
-      />
-      <Button variant="contained" startIcon={<AddIcon />} onClick={handleAdd} size="large" ></Button>
-      <TaskList {...{ tasks, handleDelete, handleUpdateChecked, handleUpdateContent }} />
-    </div>
-  );
+    function thenAddTask(response) {
+        setInpValue("")
+        console.log(response)
+        getTasks(TodoListId, thenGetTasks)
+    }
+
+    function thenDeleteTask(response) {
+        console.log(response)
+        getTasks(TodoListId, thenGetTasks)
+    }
+
+    function thenUpdateTask(response) {
+        console.log(response)
+        getTasks(TodoListId, thenGetTasks)
+    }
+
+    function handleAdd(content) {
+        addTask({ content, TodoListId }, thenAddTask)
+    }
+
+    function handleDelete(id) {
+        deleteTask(id, thenDeleteTask)
+    }
+
+    function handleUpdate(id, data) {
+        updateTask(id, { ...data, TodoListId }, thenUpdateTask)
+    }
+    // eslint-disable-next-line
+    useEffect(() => { getTasks(TodoListId, thenGetTasks) }, [])
+
+    return (
+        <>
+            <h1>TodoList {TodoListId}</h1>
+            <TextField
+                label="Enter new task content"
+                variant="outlined"
+                type="text"
+                value={inpValue}
+                onChange={(e) => setInpValue(e.target.value)}
+                size="small"
+            />
+            <Button variant="contained" onClick={() => handleAdd(inpValue)} size="large"><AddIcon /></Button>
+            <TaskList {...{ tasks, handleDelete, handleUpdate }} />
+        </>
+    );
 }

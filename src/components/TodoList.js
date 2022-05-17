@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { IconButton, TextField, Checkbox, ButtonGroup, List, ListItemText, ListItemButton, ListItem, ListItemIcon } from "@mui/material";
+import { IconButton, TextField, ButtonGroup, List, ListItemText, ListItemButton, ListItem, ListItemIcon } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import TaskIcon from '@mui/icons-material/Task';
 import SaveIcon from '@mui/icons-material/Save';
@@ -11,10 +11,6 @@ function Item(props) {
     const { id, name, handleDelete, handleUpdate } = props
     const [inpText, setInpText] = useState(name)
     const [editMode, setEditMode] = useState(false)
-
-    function changeInpText(e) {
-        setInpText(e.target.value)
-    }
 
     function handleEdit(id, name) {
         if (!editMode)
@@ -43,7 +39,7 @@ function Item(props) {
                             variant="outlined"
                             type="text"
                             value={inpText}
-                            onChange={changeInpText}
+                            onChange={(e)=>setInpText(e.target.value)}
                             size="small"
                         />
                         : name

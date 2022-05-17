@@ -10,7 +10,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 export default function AlertDialog(props) {
 	const [open, setOpen] = React.useState(false);
 	const { icon, id, handleDelete } = props
-	
+
 	const handleClickOpen = () => {
 		setOpen(true);
 	}
@@ -39,7 +39,7 @@ export default function AlertDialog(props) {
 				</DialogTitle>
 				<DialogContent>
 					<DialogContentText id="alert-dialog-description">
-						Are you sure to delele this task?
+						Are you sure ?
 					</DialogContentText>
 				</DialogContent>
 				<DialogActions>

@@ -8,50 +8,54 @@ import AlertDialog from "./Dialog";
 
 
 function Item(props) {
-  const { id, checked, content, editMode, handleDelete, handleUpdateChecked, handleUpdateContent } = props;
-  const [inpEditValue, setInpEditValue] = useState(content)
-  function changeEditValue(e) {
-    setInpEditValue(e.target.value);
+  const { id, content, checked, handleDelete, handleUpdate } = props;
+  const [inpText, setInpText] = useState(content)
+  const [editMode, setEditMode] = useState(false)
+
+  function handleEdit(id, data) {
+    if (!editMode)
+      setEditMode(true)
+    else {
+      setEditMode(false)
+      handleUpdate(id, data)
+    }
   }
-  let iconButton = <EditIcon />
-  let listTextItem = <ListItemText primary={content} />
-  if (editMode) {
-    iconButton = <SaveIcon />
-    listTextItem = <ListItemText>
-      <TextField
-        label="Enter task content"
-        variant="outlined"
-        type="text"
-        value={inpEditValue}
-        onChange={changeEditValue}
-        size="small"
-      />
-    </ListItemText>
-  }
+
   return (
     <ListItem
       disablePadding
       secondaryAction={
         <ButtonGroup>
-          <IconButton edge="end" onClick={() => handleUpdateContent(id, inpEditValue)}>{iconButton}</IconButton>
+          <IconButton edge="end" onClick={() => handleEdit(id, { content: inpText })}>{editMode ? <SaveIcon /> : <EditIcon />}</IconButton>
           <AlertDialog {...{ handleDelete, id, icon: <DeleteIcon /> }} />
         </ButtonGroup>
       }>
       <ListItemButton>
         <ListItemIcon>
-          <Checkbox checked={checked} type="checkbox" onClick={() => handleUpdateChecked(id)} size="large" />
+          <Checkbox checked={checked} type="checkbox" onClick={() => handleUpdate(id, { checked: !checked })} size="large" />
         </ListItemIcon>
-        {listTextItem}
+        <ListItemText primary={
+          editMode ?
+            <TextField
+              label="Enter new task content"
+              variant="outlined"
+              type="text"
+              value={inpText}
+              onChange={(e) => setInpText(e.target.value)}
+              size="small"
+            />
+            : content
+        } />
       </ListItemButton>
     </ListItem>
   )
 }
 export default function TaskList(props) {
-  const { tasks, handleDelete, handleUpdateChecked, handleUpdateContent } = props
+  const { tasks, handleDelete, handleUpdate} = props
   return (
     <List>
       {tasks.map((task) => (
-        <Item key={task.id} {...task} {...{ handleDelete, handleUpdateChecked, handleUpdateContent }} />
+        <Item key={task.id} {...task} {...{ handleDelete, handleUpdate }} />
       ))}
     </List>
   )

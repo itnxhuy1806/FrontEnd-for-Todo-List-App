@@ -12,23 +12,16 @@ export default function Home() {
     const [todos, setTodos] = useState([]);
     const { getTodos, addTodo, deleteTodo, updateTodo } = API
 
-    function changeInp(e) {
-        setInpValue(e.target.value);
-    }
-
     function thenGetTodos(response) {
-        console.log(response)
         setTodos(response.data.data.sort((a, b) => a.id - b.id))
     }
 
     function thenAddTodo(response) {
-        console.log(response);
         setInpValue("")
         getTodos(thenGetTodos)
     }
 
     function thenDeleteTodo(response) {
-        console.log(response);
         getTodos(thenGetTodos)
     }
 
@@ -54,15 +47,16 @@ export default function Home() {
 
     return (
         <>
+            <h1>TodoList</h1>
             <TextField
                 label="Enter new todo list name"
                 variant="outlined"
                 type="text"
                 value={inpValue}
-                onChange={changeInp}
+                onChange={(e)=>setInpValue(e.target.value)}
                 size="small"
             />
-            <Button variant="contained" startIcon={<AddIcon />} onClick={() => (handleAdd(inpValue))} size="large"></Button>
+            <Button variant="contained" onClick={() => handleAdd(inpValue)} size="large"><AddIcon /></Button>
             <TodoList {...{ todos, handleDelete, handleUpdate }} />
             <Link to="/login">Login</Link>
         </>
