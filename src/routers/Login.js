@@ -9,7 +9,7 @@ export default function Login() {
     const [inpUsername, setInpUsername] = useState("")
     const [inpPassword, setInpPassword] = useState("")
     return (
-        <Stack sx={{ padding: '0px 50px', '& *': { marginBottom: '25px' } }}>
+        <Stack sx={{ padding: '0px 50px', '& .MuiTextField-root': { marginBottom: '25px' } }}>
             <h1>Login</h1>
             <TextField
                 label="Username"
@@ -27,7 +27,7 @@ export default function Login() {
                 onChange={(e) => setInpPassword(e.target.value)}
                 size="small"
             />
-            <div><Link href="#/register">Do you not have an account?</Link></div>
+            <Link style={{marginBottom:"25px"}} href="#/register">Do you not have an account?</Link>
             <Button variant='contained'>Login</Button>
         </Stack>
     );
