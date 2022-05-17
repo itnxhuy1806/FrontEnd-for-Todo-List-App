@@ -38,7 +38,7 @@ export default function Home() {
     }
 
     function handleAdd(name) {
-        addTodo({ name }, thenAddTodo)
+        addTodo(name, thenAddTodo)
     }
 
     function handleDelete(id) {
@@ -49,6 +49,7 @@ export default function Home() {
         updateTodo(id, name, thenUpdateTodo)
     }
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => { getTodos(thenGetTodos) }, [])
 
     return (
@@ -64,8 +65,6 @@ export default function Home() {
             <Button variant="contained" startIcon={<AddIcon />} onClick={() => (handleAdd(inpValue))} size="large"></Button>
             <TodoList {...{ todos, handleDelete, handleUpdate }} />
             <Link to="/login">Login</Link>
-            <p></p>
-            <Link to="/register">register</Link>
         </>
     )
 }

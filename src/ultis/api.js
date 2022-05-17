@@ -18,8 +18,8 @@ export function getTodos(thenFunction) {
         .catch(defaultCatchFunction)
 }
 
-export function addTodo(data, thenFunction) {
-    api.post('todos/create', data)
+export function addTodo(name, thenFunction) {
+    api.post('todos/create', {name})
         .then(thenFunction)
         .catch(defaultCatchFunction)
 }
