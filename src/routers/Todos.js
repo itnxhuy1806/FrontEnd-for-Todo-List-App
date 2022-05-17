@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Button, TextField } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
-import './App.css'
-import TaskList from "./TaskList";
+import '../App.css'
+import TaskList from "../components/TaskList";
 
 
 function generateId(arr) {
@@ -10,7 +10,7 @@ function generateId(arr) {
   return 1;
 }
 
-function App() {
+export default function Todos() {
   const [tasks, setTasks] = useState([]);
   const [inpValue, setInpValue] = useState("");
   function changeInp(e) {
@@ -27,6 +27,7 @@ function App() {
     setInpValue("")
     setTasks([...tasks, newTasks]);
   }
+  
   function handleDelete(id) {
     const newTasks = [...tasks].filter((task) => task.id !== id);
     setTasks(newTasks);
@@ -49,7 +50,7 @@ function App() {
     setTasks(newTasks);
   }
   return (
-    <div className="App" style={{ margin: "100px", Width: "600px", border: "1px black solid" }}>
+    <div className="App" >
       <h1>TodoList</h1>
       <TextField
         label="Enter new task content"
@@ -64,5 +65,3 @@ function App() {
     </div>
   );
 }
-
-export default App;

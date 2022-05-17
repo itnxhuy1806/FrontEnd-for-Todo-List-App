@@ -10,17 +10,18 @@ import DialogTitle from '@mui/material/DialogTitle';
 export default function AlertDialog(props) {
 	const [open, setOpen] = React.useState(false);
 	const { icon, id, handleDelete } = props
+	
 	const handleClickOpen = () => {
 		setOpen(true);
-	};
+	}
 
 	const handleClose = () => {
 		setOpen(false);
-	};
+	}
 	const handleCloseAgree = () => {
 		setOpen(false);
 		handleDelete(id);
-	};
+	}
 
 	return (
 		<div>
