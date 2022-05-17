@@ -1,5 +1,6 @@
 
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { IconButton, TextField, ButtonGroup, List, ListItemText, ListItemButton, ListItem, ListItemIcon } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import TaskIcon from '@mui/icons-material/Task';
@@ -7,10 +8,12 @@ import SaveIcon from '@mui/icons-material/Save';
 import EditIcon from '@mui/icons-material/Edit';
 import AlertDialog from "./Dialog";
 
+
 function Item(props) {
     const { id, name, handleDelete, handleUpdate } = props
     const [inpText, setInpText] = useState(name)
     const [editMode, setEditMode] = useState(false)
+    let navigate = useNavigate();
 
     function handleEdit(id, name) {
         if (!editMode)
@@ -20,7 +23,7 @@ function Item(props) {
             handleUpdate(id, name)
         }
     }
-    
+
     return (
         <ListItem disablePadding secondaryAction={
             <ButtonGroup>
@@ -28,7 +31,8 @@ function Item(props) {
                 <AlertDialog {...{ handleDelete, id, icon: <DeleteIcon /> }} />
             </ButtonGroup>
         }>
-            <ListItemButton>
+            <ListItemButton onClick={() => { navigate(`/todos/${id}`, { replace: true }); }} >
+
                 <ListItemIcon>
                     <TaskIcon />
                 </ListItemIcon>
@@ -39,7 +43,7 @@ function Item(props) {
                             variant="outlined"
                             type="text"
                             value={inpText}
-                            onChange={(e)=>setInpText(e.target.value)}
+                            onChange={(e) => setInpText(e.target.value)}
                             size="small"
                         />
                         : name

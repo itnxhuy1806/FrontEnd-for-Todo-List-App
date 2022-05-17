@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import AddIcon from '@mui/icons-material/Add';
@@ -12,6 +12,8 @@ export default function Todos() {
     const [inpValue, setInpValue] = useState("");
     const { getTasks, addTask, deleteTask, updateTask } = API
     let { TodoListId } = useParams();
+    let navigate = useNavigate();
+
 
     function thenGetTasks(response) {
         console.log(response)
@@ -60,6 +62,8 @@ export default function Todos() {
                 size="small"
             />
             <Button variant="contained" onClick={() => handleAdd(inpValue)} size="large"><AddIcon /></Button>
+            <br/>
+            <Link to="/">Home</Link>
             <TaskList {...{ tasks, handleDelete, handleUpdate }} />
         </>
     );
