@@ -1,16 +1,32 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
+import * as API from "../ultis/api"
+import * as USER from "../ultis/user"
+import { useNavigate } from 'react-router-dom';
 
 export default function Register() {
     const [inpUsername, setInpUsername] = useState("")
     const [inpPassword, setInpPassword] = useState("")
     const [inpRePassword, setInpRePassword] = useState("")
     const [inpEmail, setInpEmail] = useState("")
+    let navigate = useNavigate();
+
+    function handleRegister(username, password, email) {
+        API.register({ username, password, email }, (response) => {
+            if (response.data.success) {
+                USER.login(response.data.data.accessToken, response.data.data.refreshToken)
+                navigate('/', { replace: true})
+            }
+        })
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    useEffect(USER.logout, [])
+
     return (
-        <Stack sx={{ padding: '0px 50px', '& *': { marginBottom: '25px' } }}>
+        <Stack sx={{ padding: '0px 50px', '& .MuiTextField-root': { marginBottom: '25px' } }}>
             <h1>Register</h1>
             <TextField
                 label="Username"
@@ -23,7 +39,7 @@ export default function Register() {
             <TextField
                 label="Password"
                 variant="outlined"
-                type="text"
+                type="password"
                 value={inpPassword}
                 onChange={(e) => setInpPassword(e.target.value)}
                 size="small"
@@ -31,7 +47,7 @@ export default function Register() {
             <TextField
                 label="RePassword"
                 variant="outlined"
-                type="text"
+                type="password"
                 value={inpRePassword}
                 onChange={(e) => setInpRePassword(e.target.value)}
                 size="small"
@@ -44,8 +60,8 @@ export default function Register() {
                 onChange={(e) => setInpEmail(e.target.value)}
                 size="small"
             />
-            <div><Link href="#/login"> Back to login</Link></div>
-            <Button variant='contained'>Login</Button>
+            <Link style={{ marginBottom: "25px" }} href="#/login"> Back to login</Link>
+            <Button variant='contained' onClick={() => handleRegister(inpUsername, inpPassword, inpEmail)}>Login</Button>
         </Stack>
     );
 }

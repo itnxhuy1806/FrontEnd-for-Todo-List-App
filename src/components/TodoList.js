@@ -31,8 +31,7 @@ function Item(props) {
                 <AlertDialog {...{ handleDelete, id, icon: <DeleteIcon /> }} />
             </ButtonGroup>
         }>
-            <ListItemButton onClick={() => { navigate(`/todos/${id}`, { replace: true }); }} >
-
+            <ListItemButton onClick={() => { navigate(`/todos/${id}`, { replace: true }) }} >
                 <ListItemIcon>
                     <TaskIcon />
                 </ListItemIcon>

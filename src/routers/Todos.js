@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import AddIcon from '@mui/icons-material/Add';
@@ -7,16 +7,16 @@ import TaskList from "../components/TaskList";
 import * as API from "../ultis/api"
 
 export default function Todos() {
-
     const [tasks, setTasks] = useState([]);
+    const [todo, setTodo] = useState({});
     const [inpValue, setInpValue] = useState("");
     const { getTasks, addTask, deleteTask, updateTask } = API
     let { TodoListId } = useParams();
-    let navigate = useNavigate();
 
 
     function thenGetTasks(response) {
         console.log(response)
+        setTodo(response.data.data.todo)
         setTasks(response.data.data.tasks.sort((a, b) => a.id - b.id))
     }
 
@@ -52,7 +52,7 @@ export default function Todos() {
 
     return (
         <>
-            <h1>TodoList {TodoListId}</h1>
+            <h1>{todo.name}</h1>
             <TextField
                 label="Enter new task content"
                 variant="outlined"
@@ -62,8 +62,7 @@ export default function Todos() {
                 size="small"
             />
             <Button variant="contained" onClick={() => handleAdd(inpValue)} size="large"><AddIcon /></Button>
-            <br/>
-            <Link to="/">Home</Link>
+            <p><Link style={{ color: "blue" }} to="/">Back home</Link></p>
             <TaskList {...{ tasks, handleDelete, handleUpdate }} />
         </>
     );

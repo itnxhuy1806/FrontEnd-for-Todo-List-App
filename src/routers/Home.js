@@ -11,7 +11,7 @@ export default function Home() {
     const [inpValue, setInpValue] = useState("");
     const [todos, setTodos] = useState([]);
     const { getTodos, addTodo, deleteTodo, updateTodo } = API
-
+    
     function thenGetTodos(response) {
         setTodos(response.data.data.sort((a, b) => a.id - b.id))
     }
@@ -41,7 +41,6 @@ export default function Home() {
     function handleUpdate(id, name) {
         updateTodo(id, name, thenUpdateTodo)
     }
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => { getTodos(thenGetTodos) }, [])
 
@@ -53,7 +52,7 @@ export default function Home() {
                 variant="outlined"
                 type="text"
                 value={inpValue}
-                onChange={(e)=>setInpValue(e.target.value)}
+                onChange={(e) => setInpValue(e.target.value)}
                 size="small"
             />
             <Button variant="contained" onClick={() => handleAdd(inpValue)} size="large"><AddIcon /></Button>
