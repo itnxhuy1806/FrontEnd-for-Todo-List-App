@@ -1,14 +1,16 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
 import * as API from "../ultis/api"
-import * as USER from "../ultis/user"
+import * as TOKEN from "../ultis/token"
 import { useNavigate } from 'react-router-dom';
 
 
-export default function Login() {
+export default function Login(props) {
+
+    const {setLogged } = props
     const [inpUsername, setInpUsername] = useState("")
     const [inpPassword, setInpPassword] = useState("")
     let navigate = useNavigate();
@@ -16,13 +18,13 @@ export default function Login() {
     function handleLogin(username, password) {
         API.login({ username, password }, (response) => {
             if (response.data.success) {
-                USER.login(response.data.data.accessToken, response.data.data.refreshToken)
+                TOKEN.setToken(response.data.data.accessToken, response.data.data.refreshToken)
+                setLogged(true)
                 navigate('/', { replace: true, })
             }
         })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    useEffect(USER.logout, [])
     return (
         <Stack sx={{ padding: '0px 50px', '& .MuiTextField-root': { marginBottom: '25px' } }}>
             <h1>Login</h1>

@@ -3,18 +3,27 @@ import jsCookie from "js-cookie";
 
 const api = axios.create({
     baseURL: 'http://localhost:8080/api',
-    timeout: 1000
+    // timeout: 1000
 });
 api.interceptors.request.use(function (config) {
     config.headers = { 'Authorization': `Bearer ${jsCookie.get('accessToken')}` }
     return config
 })
-api.interceptors.response.use(function (response) {
-    return response;
-}, function (error) {
-    console.log(error)
-    return Promise.reject(error);
-});
+api.interceptors.response.use(
+    function (response) {
+        return response
+    },
+    async function (error) {
+        const originalRequest = error.config;
+        const { status, statusText } = error.response.request
+        if (status === 401 && statusText === "Unauthorized" && !originalRequest._retry) {
+            originalRequest._retry = true;
+            const newAccessToken = await getNewAccessToken()
+            jsCookie.set('accessToken', newAccessToken)
+            return api(originalRequest)
+        }
+        return Promise.reject(error)
+    });
 
 //-----------Users--------------------------------
 export function register(data, thenFunction) {
@@ -25,8 +34,19 @@ export function login(data, thenFunction) {
     api.post('/users/login', data)
         .then(thenFunction)
 }
+export function logout(thenFunction) {
+    api.get('/users/logout')
+        .then(thenFunction)
+}
 //-----------Token-------------------------------
-
+async function getNewAccessToken() {
+    let newAccessToken
+    await axios.get('http://localhost:8080/api/token/newAccessToken', { headers: { 'Authorization': `Bearer ${jsCookie.get('refreshToken')}` } })
+        .then(function (response) {
+            newAccessToken = response.data.data.accessToken
+        })
+    return newAccessToken
+}
 //-----------Todos--------------------------------
 
 export function getTodos(thenFunction) {
@@ -57,7 +77,7 @@ export function getTasks(id, thenFunction) {
 export function addTask(data, thenFunction) {
     api.post('tasks/create', data)
         .then(thenFunction)
-        
+
 }
 export function deleteTask(id, thenFunction) {
     api.delete(`tasks/delete/${id}`)

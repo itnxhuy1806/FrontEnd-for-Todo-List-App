@@ -1,13 +1,15 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
 import * as API from "../ultis/api"
-import * as USER from "../ultis/user"
+import * as TOKEN from "../ultis/token"
 import { useNavigate } from 'react-router-dom';
 
-export default function Register() {
+export default function Register(props) {
+
+    const {setLogged } = props
     const [inpUsername, setInpUsername] = useState("")
     const [inpPassword, setInpPassword] = useState("")
     const [inpRePassword, setInpRePassword] = useState("")
@@ -17,14 +19,13 @@ export default function Register() {
     function handleRegister(username, password, email) {
         API.register({ username, password, email }, (response) => {
             if (response.data.success) {
-                USER.login(response.data.data.accessToken, response.data.data.refreshToken)
-                navigate('/', { replace: true})
+                TOKEN.setToken(response.data.data.accessToken, response.data.data.refreshToken)
+                setLogged(true)
+                navigate('/', { replace: true })
             }
         })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    useEffect(USER.logout, [])
-
     return (
         <Stack sx={{ padding: '0px 50px', '& .MuiTextField-root': { marginBottom: '25px' } }}>
             <h1>Register</h1>
@@ -61,7 +62,7 @@ export default function Register() {
                 size="small"
             />
             <Link style={{ marginBottom: "25px" }} href="#/login"> Back to login</Link>
-            <Button variant='contained' onClick={() => handleRegister(inpUsername, inpPassword, inpEmail)}>Login</Button>
+            <Button variant='contained' onClick={() => handleRegister(inpUsername, inpPassword, inpEmail)}>Register</Button>
         </Stack>
     );
 }

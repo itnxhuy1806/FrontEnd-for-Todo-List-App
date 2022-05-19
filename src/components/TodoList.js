@@ -31,7 +31,7 @@ function Item(props) {
                 <AlertDialog {...{ handleDelete, id, icon: <DeleteIcon /> }} />
             </ButtonGroup>
         }>
-            <ListItemButton onClick={() => { navigate(`/todos/${id}`, { replace: true }) }} >
+            <ListItemButton onClick={(e) => { if (e.target.tagName !== "INPUT") navigate(`/todos/${id}`, { replace: true }) }} >
                 <ListItemIcon>
                     <TaskIcon />
                 </ListItemIcon>

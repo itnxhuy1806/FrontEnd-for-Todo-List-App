@@ -65,5 +65,5 @@ export default function Todos() {
             <p><Link style={{ color: "blue" }} to="/">Back home</Link></p>
             <TaskList {...{ tasks, handleDelete, handleUpdate }} />
         </>
-    );
+    )
 }
