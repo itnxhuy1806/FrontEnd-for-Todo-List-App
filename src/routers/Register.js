@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
@@ -6,10 +6,10 @@ import Stack from '@mui/material/Stack';
 import * as API from "../ultis/api"
 import * as TOKEN from "../ultis/token"
 import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../userContext';
 
-export default function Register(props) {
-
-    const {setLogged } = props
+export default function Register() {
+    const { setUserContext } = useContext(UserContext)
     const [inpUsername, setInpUsername] = useState("")
     const [inpPassword, setInpPassword] = useState("")
     const [inpRePassword, setInpRePassword] = useState("")
@@ -20,7 +20,7 @@ export default function Register(props) {
         API.register({ username, password, email }, (response) => {
             if (response.data.success) {
                 TOKEN.setToken(response.data.data.accessToken, response.data.data.refreshToken)
-                setLogged(true)
+                setUserContext({ logged: true })
                 navigate('/', { replace: true })
             }
         })

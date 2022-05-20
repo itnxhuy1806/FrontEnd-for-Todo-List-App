@@ -1,15 +1,16 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import AddIcon from '@mui/icons-material/Add';
 import TodoList from "../components/TodoList";
 import * as API from "../ultis/api"
 import * as TOKEN from "../ultis/token"
-import { useNavigate } from 'react-router-dom';
+import { UserContext } from "../userContext";
+import Typography from '@mui/material/Typography';
 
-export default function Home(props) {
-
-    const { logged, setLogged } = props
+export default function Home() {
+    const { userContext, setUserContext } = useContext(UserContext)
     const [inpValue, setInpValue] = useState("");
     const [todos, setTodos] = useState([]);
     const { getTodos, addTodo, deleteTodo, updateTodo } = API
@@ -49,17 +50,17 @@ export default function Home(props) {
         API.logout((response) => {
             if (response.data.success) {
                 TOKEN.removeToken()
-                setLogged(false)
+                setUserContext({ logged: false })
             }
         })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => { getTodos(thenGetTodos) }, [])
-
+    console.log(userContext)
     return (
         <>
             <h1>TodoList</h1>
-            {logged
+            {userContext.logged
                 ? <>
                     <TextField
                         label="Enter new todo list name"

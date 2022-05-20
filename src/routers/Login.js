@@ -1,16 +1,17 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
 import * as API from "../ultis/api"
 import * as TOKEN from "../ultis/token"
-import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../userContext';
 
 
-export default function Login(props) {
+export default function Login() {
 
-    const {setLogged } = props
+    const {setUserContext} = useContext(UserContext)
     const [inpUsername, setInpUsername] = useState("")
     const [inpPassword, setInpPassword] = useState("")
     let navigate = useNavigate();
@@ -19,7 +20,7 @@ export default function Login(props) {
         API.login({ username, password }, (response) => {
             if (response.data.success) {
                 TOKEN.setToken(response.data.data.accessToken, response.data.data.refreshToken)
-                setLogged(true)
+                setUserContext({ logged: true })
                 navigate('/', { replace: true, })
             }
         })
