@@ -7,7 +7,6 @@ import TodoList from "../components/TodoList";
 import * as API from "../ultis/api"
 import * as TOKEN from "../ultis/token"
 import { UserContext } from "../userContext";
-import Typography from '@mui/material/Typography';
 
 export default function Home() {
     const { userContext, setUserContext } = useContext(UserContext)
