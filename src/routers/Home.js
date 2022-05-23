@@ -1,17 +1,19 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux'
+import { setFalse } from '../ultis/loggedReducer'
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import AddIcon from '@mui/icons-material/Add';
 import TodoList from "../components/TodoList";
 import * as API from "../ultis/api"
 import * as TOKEN from "../ultis/token"
-import { UserContext } from "../userContext";
 
 export default function Home() {
-    const { userContext, setUserContext } = useContext(UserContext)
     const [inpValue, setInpValue] = useState("");
     const [todos, setTodos] = useState([]);
+    const logged = useSelector(state => state.logged.value)
+    const dispatch = useDispatch()
     const { getTodos, addTodo, deleteTodo, updateTodo } = API
     let navigate = useNavigate()
 
@@ -48,7 +50,7 @@ export default function Home() {
         API.logout((response) => {
             if (response.data.success) {
                 TOKEN.removeToken()
-                setUserContext({ logged: false })
+                dispatch(setFalse())
             }
         })
     }
@@ -57,7 +59,7 @@ export default function Home() {
     return (
         <>
             <h1>TodoList</h1>
-            {userContext.logged
+            {logged
                 ? <>
                     <TextField
                         label="Enter new todo list name"

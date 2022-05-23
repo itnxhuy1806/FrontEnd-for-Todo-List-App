@@ -18,7 +18,7 @@ export default function Tasks() {
     function handleUpdate(id, data) {
         API.updateTask(id, data)
     }
-
+    // eslint-disable-next-line
     useEffect(() => { API.getTask(TaskId, thenGetTask) }, [])
     return (
         <>

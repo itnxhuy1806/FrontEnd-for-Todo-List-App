@@ -1,4 +1,6 @@
-import { useState, useContext } from 'react';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux'
+import { setTrue } from '../ultis/loggedReducer'
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
@@ -6,10 +8,9 @@ import Stack from '@mui/material/Stack';
 import * as API from "../ultis/api"
 import * as TOKEN from "../ultis/token"
 import { useNavigate } from 'react-router-dom';
-import { UserContext } from '../userContext';
 
 export default function Register() {
-    const { setUserContext } = useContext(UserContext)
+    const dispatch = useDispatch()
     const [inpUsername, setInpUsername] = useState("")
     const [inpPassword, setInpPassword] = useState("")
     const [inpRePassword, setInpRePassword] = useState("")
@@ -20,7 +21,7 @@ export default function Register() {
         API.register({ username, password, email }, (response) => {
             if (response.data.success) {
                 TOKEN.setToken(response.data.data.accessToken, response.data.data.refreshToken)
-                setUserContext({ logged: true })
+                dispatch(setTrue())
                 navigate('/', { replace: true })
             }
         })

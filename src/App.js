@@ -1,43 +1,31 @@
-import React, { useContext, useState } from 'react'
+import React from 'react'
 import { Route, Routes, HashRouter } from "react-router-dom";
+import { useSelector } from 'react-redux'
 import Container from '@mui/material/Container';
-import jsCookie from 'js-cookie';
 import Home from './routers/Home'
 import Register from './routers/Register'
 import Login from './routers/Login'
 import Todos from './routers/Todos'
 import NotFound from "./routers/NotFound";
-import { UserContext } from './userContext';
 import './css/App.css'
 import Tasks from './routers/Tasks';
 
 export default function App() {
-    const [userContext, setUserContext] = useState({ logged: jsCookie.get('accessToken') !== undefined });
-    return (
-        <UserContext.Provider value={{ userContext, setUserContext }}>
-            <Container maxWidth="md">
-                <div className="App">
-                    <Routers />
-                </div>
-            </Container>
-        </UserContext.Provider>
-    )
-}
-
-function Routers() {
-    const { userContext } = useContext(UserContext)
+    const logged = useSelector(state => state.logged.value)
 
     return (
-        <HashRouter>
+        <Container maxWidth="md">
+            <div className="App">
+            <HashRouter>
             <Routes>
                 <Route path="/" element={<Home />} />
-                {userContext.logged
+                {logged
                     ? <>
                         <Route path="/todos">
                             <Route path=":TodoListId" element={<Todos />} />
                         </Route>
                         <Route path="/tasks">
-                            <Route path=":TaskId" element={<Tasks/>} />
+                            <Route path=":TaskId" element={<Tasks />} />
                         </Route>
                     </>
                     : <>
@@ -48,5 +36,7 @@ function Routers() {
                 <Route path="*" element={<NotFound />} />
             </Routes>
         </HashRouter>
+            </div>
+        </Container>
     )
 }
