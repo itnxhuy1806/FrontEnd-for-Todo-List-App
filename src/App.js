@@ -9,11 +9,12 @@ import Todos from './routers/Todos'
 import NotFound from "./routers/NotFound";
 import { UserContext } from './userContext';
 import './css/App.css'
+import Tasks from './routers/Tasks';
 
 export default function App() {
-    const [userContext, setUserContext] = useState({ logged: jsCookie.get('accessToken')!==undefined });
+    const [userContext, setUserContext] = useState({ logged: jsCookie.get('accessToken') !== undefined });
     return (
-        <UserContext.Provider value={{userContext, setUserContext}}>
+        <UserContext.Provider value={{ userContext, setUserContext }}>
             <Container maxWidth="md">
                 <div className="App">
                     <Routers />
@@ -24,8 +25,8 @@ export default function App() {
 }
 
 function Routers() {
-    const {userContext} = useContext(UserContext)
-    
+    const { userContext } = useContext(UserContext)
+
     return (
         <HashRouter>
             <Routes>
@@ -34,6 +35,9 @@ function Routers() {
                     ? <>
                         <Route path="/todos">
                             <Route path=":TodoListId" element={<Todos />} />
+                        </Route>
+                        <Route path="/tasks">
+                            <Route path=":TaskId" element={<Tasks/>} />
                         </Route>
                     </>
                     : <>

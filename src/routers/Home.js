@@ -29,7 +29,6 @@ export default function Home() {
     }
 
     function thenUpdateTodo(response) {
-        console.log(response);
         getTodos(thenGetTodos)
     }
 
@@ -55,7 +54,6 @@ export default function Home() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => { getTodos(thenGetTodos) }, [])
-    console.log(userContext)
     return (
         <>
             <h1>TodoList</h1>

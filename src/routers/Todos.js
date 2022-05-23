@@ -15,24 +15,20 @@ export default function Todos() {
 
 
     function thenGetTasks(response) {
-        console.log(response)
         setTodo(response.data.data.todo)
         setTasks(response.data.data.tasks.sort((a, b) => a.id - b.id))
     }
 
     function thenAddTask(response) {
         setInpValue("")
-        console.log(response)
         getTasks(TodoListId, thenGetTasks)
     }
 
     function thenDeleteTask(response) {
-        console.log(response)
         getTasks(TodoListId, thenGetTasks)
     }
 
     function thenUpdateTask(response) {
-        console.log(response)
         getTasks(TodoListId, thenGetTasks)
     }
 
@@ -45,7 +41,7 @@ export default function Todos() {
     }
 
     function handleUpdate(id, data) {
-        updateTask(id, { ...data, TodoListId }, thenUpdateTask)
+        updateTask(id, data, thenUpdateTask)
     }
     // eslint-disable-next-line
     useEffect(() => { getTasks(TodoListId, thenGetTasks) }, [])

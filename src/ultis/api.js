@@ -1,12 +1,15 @@
 import axios from 'axios'
 import jsCookie from "js-cookie";
+import * as TOKEN from './token'
 
 const api = axios.create({
     baseURL: 'http://localhost:8080/api',
-    // timeout: 1000
+    timeout: 1000,
+    responseType: "json",
 });
+
 api.interceptors.request.use(function (config) {
-    config.headers = { 'Authorization': `Bearer ${jsCookie.get('accessToken')}` }
+    config.headers = { 'Authorization': `Bearer ${jsCookie.get('accessToken')}`,'content-type': 'application/json' }
     return config
 })
 api.interceptors.response.use(
@@ -16,9 +19,11 @@ api.interceptors.response.use(
     async function (error) {
         const originalRequest = error.config;
         const { status, statusText } = error.response.request
+        if (status === 401 && statusText === "Unauthorized" && originalRequest._retry)
+            return TOKEN.removeToken()
         if (status === 401 && statusText === "Unauthorized" && !originalRequest._retry) {
             originalRequest._retry = true;
-            const newAccessToken = await getNewAccessToken()
+            const newAccessToken = await getNewAccessToken() 
             jsCookie.set('accessToken', newAccessToken)
             return api(originalRequest)
         }
@@ -74,6 +79,11 @@ export function getTasks(id, thenFunction) {
         .then(thenFunction)
 }
 
+export function getTask(id, thenFunction) {
+    api.get(`/tasks/detail/${id}`)
+        .then(thenFunction)
+}
+
 export function addTask(data, thenFunction) {
     api.post('tasks/create', data)
         .then(thenFunction)
@@ -84,7 +94,6 @@ export function deleteTask(id, thenFunction) {
         .then(thenFunction)
 }
 export function updateTask(id, data, thenFunction) {
-    console.log(data)
     api.patch(`tasks/update/${id}`, data)
         .then(thenFunction)
 }
