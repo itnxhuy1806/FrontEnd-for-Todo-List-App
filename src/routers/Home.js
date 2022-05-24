@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux'
-import { setFalse } from '../ultis/loggedReducer'
+import { setFalse } from '../features/loggedReducer'
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import AddIcon from '@mui/icons-material/Add';
@@ -71,6 +71,7 @@ export default function Home() {
                     />
                     <Button variant="contained" size="large" onClick={() => handleAdd(inpValue)} ><AddIcon /></Button>
                     <TodoList {...{ todos, handleDelete, handleUpdate }} />
+                    <Button variant="contained" size="large" onClick={()=>navigate('/setting')}>Setting</Button>
                     <Button variant="contained" size="large" onClick={handleLogout}>Logout</Button>
                 </>
                 : <Button variant="contained" size="large" onClick={() => navigate('/login', { replace: true })}>Login</Button>
