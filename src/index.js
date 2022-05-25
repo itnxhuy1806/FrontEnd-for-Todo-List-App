@@ -7,7 +7,6 @@ import reportWebVitals from './reportWebVitals';
 import store from './stores/store'
 import theme from './ultis/theme';
 import App from './App';
-import './css/index.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

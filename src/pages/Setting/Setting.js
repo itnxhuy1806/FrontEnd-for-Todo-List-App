@@ -1,19 +1,13 @@
-import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
-import { setColor } from '../features/settingReducer';
+import useSetting from './useSetting';
 
 export default function Setting() {
-    const setting = useSelector(state => state.setting.value)
-    const dispatch = useDispatch()
-
-    function handleSelect(e) {
-        dispatch(setColor(e.target.value))
-    }
+    const { setting, handleSelect } = useSetting
     return (
         <>
             <h1>Setting</h1>
