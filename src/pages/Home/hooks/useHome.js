@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux'
-import { setFalse } from '../../stores/features/loggedReducer'
-import * as API from "../../ultis/api"
-import * as TOKEN from "../../ultis/token"
+import { setFalse } from '../../../stores/features/loggedReducer'
+import * as API from "../../../ultis/api"
+import * as TOKEN from "../../../ultis/token"
 
 export default function useHome() {
     const [inpValue, setInpValue] = useState("");

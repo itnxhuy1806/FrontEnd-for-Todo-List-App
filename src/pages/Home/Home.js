@@ -2,12 +2,13 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import AddIcon from '@mui/icons-material/Add';
 import TodoList from "../../components/TodoList";
-import useHome from "./useHome";
+import useHome from "./hooks/useHome";
 
 export default function Home() {
     const { logged, todos, inpValue, setInpValue, navigate, handleAdd, handleDelete, handleUpdate, handleLogout } = useHome()
     return (
         <>
+
             <h1>TodoList</h1>
             {logged
                 ? <>

@@ -7,11 +7,11 @@ import { notFoundPage } from "./routes/notFoundPage";
 
 export default function Authentication() {
   let element = useRoutes([
-      homePage,
-      todosPage,
-      tasksPage,
-      settingPage,
-      notFoundPage
+    homePage,
+    todosPage,
+    tasksPage,
+    settingPage,
+    notFoundPage
   ]);
   return element
 }

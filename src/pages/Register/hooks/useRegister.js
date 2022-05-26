@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux'
-import { setTrue } from '../../stores/features/loggedReducer'
-import * as API from "../../ultis/api"
-import * as TOKEN from "../../ultis/token"
+import { setTrue } from '../../../stores/features/loggedReducer'
+import * as API from "../../../ultis/api"
+import * as TOKEN from "../../../ultis/token"
 import { useNavigate } from 'react-router-dom';
 
 export default function useRegister() {

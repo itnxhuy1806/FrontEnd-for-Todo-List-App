@@ -7,7 +7,6 @@ import SaveIcon from '@mui/icons-material/Save';
 import EditIcon from '@mui/icons-material/Edit';
 import AlertDialog from "./Dialog";
 
-
 function Item(props) {
   const { id, content, checked, description, handleDelete, handleUpdate } = props;
   const [inpText, setInpText] = useState(content)
@@ -48,7 +47,7 @@ function Item(props) {
             />
             : content
         }
-        secondary = {description}
+          secondary={description}
         />
       </ListItemButton>
     </ListItem>

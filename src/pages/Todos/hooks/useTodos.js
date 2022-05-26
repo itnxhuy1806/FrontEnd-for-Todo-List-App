@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
-import * as API from "../../ultis/api"
+import * as API from "../../../ultis/api"
 
 export default function useTodos() {
     const [tasks, setTasks] = useState([]);
@@ -8,7 +8,7 @@ export default function useTodos() {
     const [inpValue, setInpValue] = useState("");
     const { getTasks, addTask, deleteTask, updateTask } = API
     let { id: todoId } = useParams();
-    
+
 
     function thenGetTasks(response) {
         setTodo(response.data.data.todo)
@@ -29,7 +29,7 @@ export default function useTodos() {
     }
 
     function handleAdd(content) {
-        addTask({ content, todoId }, thenAddTask)
+        addTask({ content, TodoListId: todoId }, thenAddTask)
     }
 
     function handleDelete(id) {
@@ -42,5 +42,5 @@ export default function useTodos() {
     // eslint-disable-next-line
     useEffect(() => { getTasks(todoId, thenGetTasks) }, [])
 
-    return { tasks, setTasks, todo, setTodo, inpValue, setInpValue, handleAdd, handleDelete, handleUpdate}
+    return { tasks, setTasks, todo, setTodo, inpValue, setInpValue, handleAdd, handleDelete, handleUpdate }
 }

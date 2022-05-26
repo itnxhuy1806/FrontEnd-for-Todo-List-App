@@ -2,7 +2,7 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
-import useRegister from './useRegister'
+import useRegister from './hooks/useRegister'
 
 export default function Register() {
     const { inpUsername, inpPassword, inpRePassword, inpEmail, setInpUsername, setInpPassword, setInpRePassword, setInpEmail, handleRegister } = useRegister()

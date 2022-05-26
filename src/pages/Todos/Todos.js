@@ -3,7 +3,7 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import AddIcon from '@mui/icons-material/Add';
 import TaskList from "../../components/TaskList";
-import useTodos from "./useTodos";
+import useTodos from "./hooks/useTodos";
 
 export default function Todos() {
     const { tasks, todo, inpValue, setInpValue, handleAdd, handleDelete, handleUpdate } = useTodos()

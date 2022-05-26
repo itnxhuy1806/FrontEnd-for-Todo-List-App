@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { setColor } from '../../stores/features/settingReducer';
+import { setColor } from '../../../stores/features/settingReducer';
 
 export default function useSetting() {
     const setting = useSelector(state => state.setting.value)
@@ -8,5 +8,5 @@ export default function useSetting() {
     function handleSelect(e) {
         dispatch(setColor(e.target.value))
     }
-    return { setting,handleSelect}
+    return { setting, handleSelect }
 }

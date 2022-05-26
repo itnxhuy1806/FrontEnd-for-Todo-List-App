@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux'
-import { setTrue } from '../../stores/features/loggedReducer'
+import { setTrue } from '../../../stores/features/loggedReducer'
 import { useNavigate } from 'react-router-dom';
-import * as API from "../../ultis/api"
-import * as TOKEN from "../../ultis/token"
+import * as API from "../../../ultis/api"
+import * as TOKEN from "../../../ultis/token"
 
 
 export default function useLogin() {
@@ -22,6 +22,6 @@ export default function useLogin() {
         })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    return {inpUsername, setInpUsername, inpPassword, setInpPassword, handleLogin}
+    return { inpUsername, setInpUsername, inpPassword, setInpPassword, handleLogin }
 
 }

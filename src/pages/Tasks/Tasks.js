@@ -1,7 +1,7 @@
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link'
-import useTasks from "./useTasks";
+import useTasks from "./hooks/useTasks";
 
 export default function Tasks() {
     const { task, inpDescription, setInpDescription, handleUpdate, taskId } = useTasks()

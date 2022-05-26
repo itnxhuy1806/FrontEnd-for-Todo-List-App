@@ -2,7 +2,7 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
-import useLogin from './useLogin';
+import useLogin from './hooks/useLogin';
 
 export default function Login() {
     const { inpUsername, setInpUsername, inpPassword, setInpPassword, handleLogin } = useLogin()
