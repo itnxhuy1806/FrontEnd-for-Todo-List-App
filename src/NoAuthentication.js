@@ -1,16 +1,10 @@
-import { useRoutes } from "react-router-dom";
-import { homePage } from "./routes/homePage";
-import { loginPage } from "./routes/loginPage";
-import { notFoundPage } from "./routes/notFoundPage";
-import { registerPage } from "./routes/registerPage";
-import { settingPage } from "./routes/settingPage";
+import {useRoutes} from 'react-router-dom';
+import {home} from './routes/home';
+import {login} from './routes/login';
+import {notFound} from './routes/notFound';
+import {register} from './routes/register';
+import {setting} from './routes/setting';
 
 export default function NoAuthentication() {
-    return useRoutes([
-        homePage,
-        loginPage,
-        registerPage,
-        settingPage,
-        notFoundPage
-    ]);
+  return useRoutes([home, login, register, setting, notFound]);
 }

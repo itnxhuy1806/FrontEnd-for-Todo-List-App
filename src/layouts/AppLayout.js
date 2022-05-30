@@ -1,11 +1,11 @@
-import { Outlet } from "react-router-dom";
-import MenuAppBar from '../components/AppBar';
+import {Outlet} from 'react-router-dom';
+import MenuAppBar from '../components/MenuAppBar';
 
-export function Dashboard() {
-    return (
-        <div>
-            <MenuAppBar />
-            <Outlet />
-        </div>
-    );
+export function AppLayout() {
+  return (
+    <div>
+      <MenuAppBar />
+      <Outlet />
+    </div>
+  );
 }

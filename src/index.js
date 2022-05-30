@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import CssBaseline from '@mui/material/CssBaseline';
-import { ThemeProvider } from '@mui/material/styles';
-import { Provider } from 'react-redux'
+import {ThemeProvider} from '@mui/material/styles';
+import {Provider} from 'react-redux';
 import reportWebVitals from './reportWebVitals';
-import store from './stores/store'
+import store from './stores/store';
 import theme from './ultis/theme';
 import App from './App';
 

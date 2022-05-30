@@ -1,17 +1,11 @@
-import { useRoutes } from "react-router-dom";
-import { homePage } from "./routes/homePage";
-import { todosPage } from "./routes/todosPage";
-import { tasksPage } from "./routes/tasksPage";
-import { settingPage } from "./routes/settingPage";
-import { notFoundPage } from "./routes/notFoundPage";
+import {useRoutes} from 'react-router-dom';
+import {home} from './routes/home';
+import {todos} from './routes/todos';
+import {tasks} from './routes/tasks';
+import {setting} from './routes/setting';
+import {notFound} from './routes/notFound';
 
 export default function Authentication() {
-  let element = useRoutes([
-    homePage,
-    todosPage,
-    tasksPage,
-    settingPage,
-    notFoundPage
-  ]);
-  return element
+  let element = useRoutes([home, tasks, todos, setting, notFound]);
+  return element;
 }

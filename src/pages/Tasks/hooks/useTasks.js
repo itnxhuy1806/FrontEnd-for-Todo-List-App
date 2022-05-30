@@ -1,21 +1,34 @@
-import { useState, useEffect } from "react";
-import { useParams } from 'react-router-dom';
-import * as API from "../../../ultis/api"
+import {useState, useEffect} from 'react';
+import {useSelector} from 'react-redux';
+import {useParams} from 'react-router-dom';
+import * as API from '../../../ultis/api';
 
 export default function useTasks() {
-    const [task, setTask] = useState({})
-    const [inpDescription, setInpDescription] = useState("")
-    let { id: taskId } = useParams();
+  const [task, setTask] = useState({});
+  const [inpDescription, setInpDescription] = useState('');
+  const setting = useSelector(state => state.setting.value);
+  let {taskId} = useParams();
+  console.log('task', taskId);
 
-    function thenGetTask(response) {
-        setTask(response.data.data)
-        setInpDescription(response.data.data.description)
-    }
+  function thenGetTask(response) {
+    setTask(response.data.data);
+    setInpDescription(response.data.data.description);
+  }
 
-    function handleUpdate(id, data) {
-        API.updateTask(id, data)
-    }
+  function handleUpdate(id, data) {
+    API.updateTask(id, data);
+  }
+  useEffect(() => {
+    API.getTask(taskId, thenGetTask);
     // eslint-disable-next-line
-    useEffect(() => { API.getTask(taskId, thenGetTask) }, [])
-    return { task, setTask, inpDescription, setInpDescription, handleUpdate, taskId }
+  }, []);
+  return {
+    task,
+    setTask,
+    setting,
+    inpDescription,
+    setInpDescription,
+    handleUpdate,
+    taskId
+  };
 }

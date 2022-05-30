@@ -1,20 +1,27 @@
-import { red } from '@mui/material/colors';
-import { createTheme } from '@mui/material/styles';
+import {red, purple, blue, green} from '@mui/material/colors';
+import {createTheme} from '@mui/material/styles';
 
 // A custom theme for this app
 const theme = createTheme({
   palette: {
     // mode: 'light',
-    primary: {
-      main: '#556cd6',
+    blue: {
+      main: blue[700],
+      contrastText: '#ffffff'
     },
-    secondary: {
-      main: '#19857b',
+    red: {
+      main: red[700],
+      contrastText: '#ffffff'
     },
-    error: {
-      main: red.A400,
+    pupple: {
+      main: purple[700],
+      contrastText: '#ffffff'
     },
-  },
+    green: {
+      main: green[700],
+      contrastText: '#ffffff'
+    }
+  }
 });
 
 export default theme;
