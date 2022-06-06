@@ -10,8 +10,8 @@ export default function Todos() {
     tasks,
     todo,
     inpValue,
-    setInpValue,
     setting,
+    setInpValue,
     handleAdd,
     handleDelete,
     handleUpdate

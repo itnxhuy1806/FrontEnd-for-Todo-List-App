@@ -1,6 +1,5 @@
 import React from 'react';
 import './css/App.css';
-
 import {HashRouter} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 import Authentication from './Authentication';

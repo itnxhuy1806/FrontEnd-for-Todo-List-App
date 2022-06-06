@@ -8,7 +8,6 @@ export default function useTasks() {
   const [inpDescription, setInpDescription] = useState('');
   const setting = useSelector(state => state.setting.value);
   let {taskId} = useParams();
-  console.log('task', taskId);
 
   function thenGetTask(response) {
     setTask(response.data.data);

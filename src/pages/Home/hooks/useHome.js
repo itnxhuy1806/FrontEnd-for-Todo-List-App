@@ -10,9 +10,11 @@ export default function useHome() {
   const logged = useSelector(state => state.logged.value);
   const setting = useSelector(state => state.setting.value);
   const {getTodos, addTodo, deleteTodo, updateTodo} = API;
+
   let navigate = useNavigate();
 
   function thenGetTodos(response) {
+    console.log(response);
     setTodos(response.data.data.sort((a, b) => a.id - b.id));
   }
 

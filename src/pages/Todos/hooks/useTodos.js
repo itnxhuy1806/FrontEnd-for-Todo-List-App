@@ -11,7 +11,6 @@ export default function useTodos() {
   const {getTasks, addTask, deleteTask, updateTask} = API;
   const setting = useSelector(state => state.setting.value);
   let {todoId} = useParams();
-  console.log(todoId);
 
   function thenGetTasks(response) {
     setTodo(response.data.data.todo);
